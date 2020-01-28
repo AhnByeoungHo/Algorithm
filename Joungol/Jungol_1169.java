@@ -1,6 +1,6 @@
 import java.util.Arrays;
 import java.util.Scanner;
-
+//1:조합 2:조합 3:순열
 public class Jungol_1169 {
 
 	public static void main(String[] args) {
