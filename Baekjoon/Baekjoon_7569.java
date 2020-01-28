@@ -3,7 +3,7 @@ package bak20200128;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
-
+//not solve
 class Point2{
 	public int x;
 	public int y;
