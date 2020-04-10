@@ -3,6 +3,8 @@ package swexpert;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
@@ -13,7 +15,29 @@ public class Swexpert_1251_D4 {
 	private static int[][] house;
 	private static boolean[] visit;
 	static long[][] graph;
+	//static long[][][] graph;
 	private static double E;
+	static int[] parents;
+	static int[] rank;
+	
+	
+	static class Edges implements Comparable<Edges>{
+		int v1;
+		int v2;
+		long cost;
+		public Edges(int v1, int v2, long cost){
+			this.v1=v1;
+			this.v2=v2;
+			this.cost=cost;
+		}
+		@Override
+		public int compareTo(Edges o) {
+			// TODO Auto-generated method stub
+			return Long.compare(this.cost,o.cost);
+		}
+
+		
+	}
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		// TODO Auto-generated method stub
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -40,6 +64,8 @@ public class Swexpert_1251_D4 {
 //				visit[i]= true;
 //				dfs(i,0,0);
 //			}
+			
+			
 			//prim Algorithm
 			graph = new long[N][N];
 			int[] from,to;
@@ -54,18 +80,22 @@ public class Swexpert_1251_D4 {
 			}
 			double cost = prim(0) * E;
 			cost = Math.round(cost);
+			
+			//System.out.println(cost);
 			sb.append((long)cost).append("\n");
 		}
 		System.out.println(sb);
 	}
+	
+
 	private static long prim(int start) {
 		//mst에 들어가지 않은 녀석들
-		PriorityQueue<Edge> pq = new PriorityQueue<>();
+		PriorityQueue<Vertex> pq = new PriorityQueue<>();
 		//모든정점들을 다관리
-		Edge[] dGraph = new Edge[N];
+		Vertex[] dGraph = new Vertex[N];
 		
 		for(int n=0;n<dGraph.length;n++){
-			dGraph[n] = new Edge(n, Long.MAX_VALUE);
+			dGraph[n] = new Vertex(n, Long.MAX_VALUE);
 			if(n==start){
 				dGraph[start].cost = 0;
 			}
@@ -74,15 +104,16 @@ public class Swexpert_1251_D4 {
 		
 		long cost = 0;
 		while(!pq.isEmpty()){
-			Edge front = pq.poll();
+			Vertex front = pq.poll();
 			cost += front.cost;
 			
 			for(int i=0;i<dGraph.length;i++){
-				Edge child = dGraph[i];
+				Vertex child = dGraph[i];
 				if(!pq.contains(child)) continue;
 				long temp = graph[front.idx][child.idx];
 				if(temp < child.cost){
 					child.cost = temp;
+					//순서재정렬
 					pq.remove(child);
 					pq.add(child);
 				}
@@ -91,10 +122,11 @@ public class Swexpert_1251_D4 {
 		
 		return cost;
 	}
-	static class Edge implements Comparable<Edge>{
+
+	static class Vertex implements Comparable<Vertex>{
 		int idx;
 		long cost;
-		public Edge(int idx, long cost) {
+		public Vertex(int idx, long cost) {
 			this.idx = idx;
 			this.cost = cost;
 		}
@@ -103,7 +135,7 @@ public class Swexpert_1251_D4 {
 			return "Edge [idx=" + idx + ", cost=" + cost + "]";
 		}
 		@Override
-		public int compareTo(Edge o) {
+		public int compareTo(Vertex o) {
 			return Long.compare(this.cost, o.cost);
 		}
 		
