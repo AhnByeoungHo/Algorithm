@@ -127,7 +127,5 @@ public class Baekjoon_16234 {
 			this.x = x;
 			this.y = y;
 		}
-		
 	}
-
 }
