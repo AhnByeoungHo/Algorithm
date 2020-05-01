@@ -1,6 +1,5 @@
 package bak;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
@@ -14,8 +13,7 @@ public class Baekjoon_16234 {
 	private static int[][] copy;
 	static int[] dx = {0,1,0,-1};
 	static int[] dy = {1,0,-1,0};
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+	public static void main(String[] args) 
 		Scanner sc = new Scanner(System.in);
 		N = sc.nextInt();
 		L = sc.nextInt();
